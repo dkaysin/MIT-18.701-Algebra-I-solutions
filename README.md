@@ -1,6 +1,6 @@
-My solutions to the problem sets from MIT Algebra I course (18-701). Accessed on March 10, 2020 at: https://math.mit.edu/classes/18.701/index.html
+My solutions to the problem sets from MIT Algebra I course (18-701) of Fall 2019. Accessed on March 10, 2020 at: https://math.mit.edu/classes/18.701/index.html
 
-They are similar to MIT OCW Algebra I Problem Sets, albeit somewhat updated.
+Problem sets are similar to the ones from MIT OCW Algebra I course, albeit somewhat updated.
 
 Typeset in LaTeX using Overleaf.
 
