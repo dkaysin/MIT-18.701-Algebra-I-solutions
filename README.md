@@ -3,5 +3,7 @@ Problem sets are similar to the ones from MIT OCW Algebra I course, albeit somew
 
 Algebra I course covers groups, vector spaces, linear transformations, symmetry groups, bilinear forms, and linear groups.
 
-Typeset in LaTeX using Overleaf.
+Textbook: Artin, Algebra.
+
+Solutions typeset in LaTeX using Overleaf.
 
