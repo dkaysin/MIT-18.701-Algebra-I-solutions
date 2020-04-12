@@ -437,16 +437,20 @@ Consider set $H \subseteq \GLnR$ such that for all $A \in H : A \sim I$, where $
 We note that $I \sim I$ by reflexivity.
 Thus, $H$ contains the identity element.
 
-Consider $A \in H$
-\[ I \sim A, \]
-By the result of part a):
-\[  A^{-1} \sim A A^{-1} = I \]
+For arbitrary $A \in H$
+\begin{gather*}
+    I \sim A, \\
+    \intertext{then, by the result of part a):}
+    A^{-1} \sim A A^{-1} = I.
+\end{gather*}
 Thus, $H$ contains inverses.
 
-Consider $A,B \in H$:
-\[ A \sim I \sim B \sim B^{-1} \]
-By the result of part a):
-\[ AB \sim B^{-1} B, \quad AB \sim I. \]
+For arbitrary $A,B \in H$:
+\begin{gather*}
+    A \sim I \sim B \sim B^{-1}, \\
+    \intertext{then, by the result of part a):}
+    AB \sim B^{-1} B, \quad \quad AB \sim I.
+\end{gather*}
 Thus, $H$ is closed under matrix multiplication.
 
 Therefore, $H$ is a subgroup of $\GLnR$.

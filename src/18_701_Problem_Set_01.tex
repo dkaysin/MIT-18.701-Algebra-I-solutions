@@ -20,10 +20,10 @@
 \newtheorem{claim}{Claim}
 \DeclareMathOperator{\adj}{\operatorname{adj}}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\GL}[2]{\operatorname{GL}_{#1}(#2)}
-\newcommand{\GLnR}{\GL{n}{\R}}
-\newcommand{\SL}[2]{\operatorname{SL}_{#1}(#2)}
-\newcommand{\SLnR}{\SL{n}{\R}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\GLnR}{\GL_n(\R)}
+\newcommand{\SLnR}{\SL_n(\R)}
 
 
 \title{18.701: Problem Set 1}
@@ -36,12 +36,14 @@
 \subsection*{Diagnostic Problem}
 
 \begin{tcolorbox}
-Let $a$ and $b$ be elements of a group $G$. Prove that $ab$ and $ba$ have the same order.
+Let $a$ and $b$ be elements of a group $G$.
+Prove that $ab$ and $ba$ have the same order.
 \end{tcolorbox}
 
 \begin{proof}
 
-Element of a group $G$ has order $n$ if $a^n = e$ where $e$ is an identity element of $G$. Suppose $ab$ has order $n$, then:
+Element of a group $G$ has order $n$ if $a^n = e$ where $e$ is an identity element of $G$.
+Suppose $ab$ has order $n$, then:
 \[ (ab)^n = e \]
 By associativity of group operation:
 \[ \underbrace{a\overbrace{bab \cdots aba}^\text{$(ba)$ $n-1$ times} b}_\text{$(ab)$ $n$ times} = e \]
@@ -73,12 +75,12 @@ Square matrix $A$ is invertible if and only if $\det A \neq 0$.
 Then $A$ is invertible, thus:
 \[ \det A \cdot \det (A^{-1}) = \det I_n = 1 \]
 
-Forward direction:
+($\Rightarrow$)
 Looking at the basic formula for determinant, we conclude that matrix with integer entries has integer determinant.
 Since $\det (A^{-1})$ must be integer, we can see that $\det A$ is integer if and only if $\det (A^{-1}) = \pm 1$.
 Then $\det A = \pm 1$ as requested.
 
-Backward direction:
+($\Leftarrow$)
 Suppose $\det A = \pm 1$. We know that:
 \[ A^{-1} = \frac{1}{\det A} (\adj A) = \pm (\adj A) \]
 Entries of adjugate of $A$ are derived from minors of $A$, which are determinants of smaller matrices composed from entries of $A$.
@@ -311,7 +313,7 @@ We notice that we can transform $A$ into an identity matrix using only left mult
 	c & d
 \end{pmatrix},
 \]
-with the last equality being true because $ad-bc = \det A$ and $\det A = 1$ since $A \in \SL{2}{\R}$.
+with the last equality being true because $ad-bc = \det A$ and $\det A = 1$ since $A \in \SL_2(\R)$.
 We continue with the transformations:
 \[
 \begin{pmatrix}
@@ -340,7 +342,7 @@ Summarizing, we have
     A = L_1^{-1} L_2^{-1} L_3 I,
 \end{gather*}
 where $I$ is a $2 \times 2$ identity matrix.
-Since inverse of an $L$-matrix is itself an an $L$-matrix, we conclude that $2 \times 2$ $L$-matrices generate $\SL{2}{\R}$.
+Since inverse of an $L$-matrix is itself an an $L$-matrix, we conclude that $2 \times 2$ $L$-matrices generate $\SL_2(\R)$.
 
 For the general case of matrices of size $n \times n$, we proceed by induction on $n$ with $n=2$ being the induction basis.
 Suppose any $(n-1)$-size square matrix can be reduced to identity matrix via a series of left-multiplications by $L$-matrices.
@@ -421,8 +423,9 @@ We examine a few (British English) homophones to better understand the structure
     dammed = damned, \quad m = 1; \displaybreak[0]\\
     chivvy = chivy, \quad v = 1.
 \end{gather*}
-Therefore, group $\mathcal{H}$ is trivial.
+We can see that each element of the group $\mathcal{H}$ is the identity element, therefore $\mathcal{H}$ is trivial.
 
 \end{proof}
+
 
 \end{document}

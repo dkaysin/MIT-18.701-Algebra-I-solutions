@@ -1,0 +1,489 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage[]{amsthm}
+\usepackage[]{amssymb} 
+\usepackage{mathrsfs}
+\usepackage{tcolorbox}
+\usepackage{nicefrac}
+\usepackage{mathtools}
+% \usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% \graphicspath{ {./images/} }
+
+\theoremstyle{definition}
+\newtheorem*{claim}{Claim}
+\newtheorem*{corollary}{Corollary}
+\DeclareMathOperator{\adj}{\operatorname{adj}}
+\DeclareMathOperator{\im}{\operatorname{im}}
+\DeclareMathOperator{\spn}{\operatorname{span}}
+\DeclareMathOperator{\nll}{\operatorname{null}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\GLnR}{\GL_n(\R)}
+\newcommand{\SLnR}{\SL_n(\R)}
+\newcommand{\trace}{\operatorname{tr}}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\set{\{}{\}}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\newcommand{\restrict}[1]{ \big|_{#1} }
+
+
+
+\title{18.701: Problem Set 5}
+\author{Dmitry Kaysin}
+\date{April 2020}
+\begin{document}
+\maketitle 
+
+
+\subsection*{Problem 1}
+
+\begin{tcolorbox}
+Let $T$ be a linear operator on a vector space $V$. Let $K_r$ and $W_r$ denote the kernel and image, respectively, of $T^r$.
+
+a) Show that $K_1 \subseteq K_2 \subseteq \cdots$ and that $W_1 \supseteq W_2 \supseteq \cdots$.
+\end{tcolorbox}
+
+\begin{proof}
+
+Suppose $v \in V$ is in $K_r$.
+Since $T^r v = 0$, then $TT^r v = 0$ and thus $v$ is in $K_{r+1}$.
+By induction we have $K_1 \subset K_2 \subset \cdots$.
+
+Suppose $v \in V$ is in $W_r$.
+There must exist some $u \in V$ such that $v = T^r u = T^{r-1} (Tu)$.
+Therefore $v$ is the image of some $Tu \in V$ under $T^{r-1}$, therefore $v$ is in $W_{r-1}$.
+By induction we have $W_1 \supseteq W_2 \supseteq \cdots$.
+
+\end{proof}
+
+\begin{tcolorbox}
+b) The following conditions might or might not hold for a particular value of $r$.
+\begin{gather*}
+    \text{(1) } K_r = K_{r+1}, \quad 
+    \text{(2) } W_r = W_{r+1}, \\
+    \text{(3) } W_r \cap K_1 = \set{0}, \quad
+    \text{(4) } W_1 + K_r = V.
+\end{gather*}
+Find all implications among the conditions (1)\,--\,(4) when $V$ is finite-dimensional.
+\end{tcolorbox}
+
+All four conditions are equivalent for finite-dimensional vector spaces.
+\\
+
+We first prove (1) $\iff$ (2).
+
+\begin{proof}
+By the rank-nullity theorem, $\dim K_r + \dim W_r = \dim V$.
+By the result of part a), conditions (1) and (2) are equivalent.
+\end{proof}
+
+We then prove (2) $\iff$ (3).
+
+\begin{proof}
+Consider $T\restrict{W_r}$, restriction of $T$ to $W_r$.
+By the rank-nullity theorem,
+\[ \dim W_{r} = \dim \ker T\restrict{W_r} + \dim W_{r+1}. \]
+We can write $\ker T\restrict{W_r} = W_r \cap \ker T = W_r \cap K_1$, therefore:
+\[ \dim W_{r} = \dim (W_r \cap K_1) + \dim W_{r+1}. \]
+We note that $\dim (W_r \cap K_1) = 0$ if and only if $W_r \cap K_1 = \set{0}$, which concludes the proof.
+\end{proof}
+
+We then prove (2) $\Longrightarrow$ (4).
+
+\begin{proof}
+Consider arbitrary $v \in V$.
+Since $W_r = W_{r+1}$, then
+\[ T^r v = T^r Tv, \quad T^r (v - Tv) = 0. \]
+Therefore there exists some $k$ in the kernel of $K_r$ such that $k = v-Tv$.
+Rearranging, we have $v = Tv + k$.
+We notice that $Tv$ is in $W_1$.
+Therefore every $v$ is equal to the sum of some element of $K_r$ and some element of $W_1$, which implies $W_1 + K_r = V$, as requested.
+\end{proof}
+
+Finally, we prove (4) $\Longrightarrow$ (2).
+
+\begin{proof}
+
+Consider arbitrary $v \in V$.
+Since $V = W_1 + K_r$, $v$ can be represented as $v = w+k$ for some $w \in W_1$ and $k \in K_r$.
+Choose some $x \in V$ such that $w = Tx$.
+Image of $v$ under $T^r$ is as follows:
+\[ T^r v = T^r Tx + T^r k = T^{r+1} x. \]
+Since $T^{r+1} x$ is in $W_{r+1}$, we conclude that $T^r v$ is in $W_{r+1}$, i.e. $W_r \subseteq W_{r+1}$.
+Combining this with the result of part a) yields $W_r = W_{r+1}$, as requested.
+
+\end{proof}
+
+
+\subsection*{Problem 2}
+
+\begin{tcolorbox}
+Let $A$ and $B$ be $m \times n$ and $n \times m$ real matrices.
+
+a) Prove that if $\lambda$ is a nonzero eigenvalue of the $m \times m$ matrix $AB$ then it is also an eigenvalue of the $n \times n$ matrix $BA$.
+
+Show by example that this need not be true if $\lambda = 0$.
+\end{tcolorbox}
+
+\begin{proof}
+
+Since $\lambda$ is a nonzero eigenvalue of $AB$, there must exist a nonzero eigenvector $v$ such that $ABv = \lambda v$.
+Consider vector $w = Bv$.
+Left multiply $w$ by $BA$:
+\[ BAw = BABv = B\lambda v = \lambda Bv = \lambda w. \]
+We can prove that $w \neq 0$.
+Since $\lambda \neq 0$ and $v \neq 0$, then $0 \neq \lambda v = ABv = Aw$.
+From this, $w$ must be nonzero.
+Thus, $w$ is an eigenvector of $BA$ with eigenvalue $\lambda$.
+
+This is not necessarily true for $\lambda = 0$, as the following example suggests:
+\[
+    \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0 \\
+        1 & 1 \\
+        0 & 1
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{pmatrix},
+\]
+which is invertible, thus has no zero eigenvalues, while
+\[
+    \begin{pmatrix}
+        1 & 0 \\
+        1 & 1 \\
+        0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & 0 & 0 \\
+        1 & 0 & 1 \\
+        0 & 0 & 1
+    \end{pmatrix},
+\]
+which is singular, thus has a zero eigenvalue.
+
+\end{proof}
+
+\begin{tcolorbox}
+b) Prove that $I_m - AB$ is invertible if and only if $I_n - BA$ is invertible.
+\end{tcolorbox}
+
+\begin{proof}
+
+We will use proof by contrapositive.
+Matrix is invertible if and only if it has no zero eigenvalues, so it is singular if it has at least one zero eigenvalue.
+
+Suppose $I_m - AB$ is singular and has zero eigenvalue, i.e. there exists nonzero $v$ such that
+\[ (I_m - AB)v = 0. \]
+Then
+\[ v = AB v \]
+and, noting that $v \neq 0$, matrix $AB$ must have eigenvalue $1$.
+By part a) of the problem, $BA$ must also have eigenvalue $1$, i.e.:
+\[ BA w = w \]
+for some nonzero $w$.
+From this we have
+\[ w - BA w = 0, \]
+\[ (I_n - BA) w = 0, \]
+which implies that $I_n - BA$ is singular.
+
+The proof in the other direction is symmetric.
+
+\end{proof}
+
+
+\subsection*{Problem 3}
+
+\begin{tcolorbox}
+Let $A$ be an $3 \times 3$ orthogonal matrix with $\det A = 1$, whose angle of rotation is different from $0$ or $\pi$, and let $M = A - A^t$.
+
+a) Show that $M$ has rank $2$, and that a nonzero vector $X$ in the nullspace of $M$ is an eigenvector of $A$ with eigenevalue $1$.
+\end{tcolorbox}
+
+\begin{proof}
+
+Consider spin $\rho_{(U, \theta)}$ of the rotation $A$.
+Rotation $A$ fixes $U$, therefore $U$ is an eigenvector of $A$ with eigenvalue $1$:
+\[ AU = U. \]
+We know that $A^{-1}$ is rotation with spin $\rho{(U,-\theta)}$, which also fixes $U$:
+\[ A^{-1} U = U. \]
+From this we have:
+\[ AU = A^{-1} U, \quad (A - A^{-1})U = 0. \]
+Since $A$ is an orthogonal matrix, $A^t = A^{-1}$, therefore
+\[ 0 = (A - A^t)U = M U. \]
+Therefore, nullspace of $M$ is nontrivial and includes, at least, a subspace spanned by $U$.
+
+We will now prove that $\nll M = \spn U$.
+Consider nonzero $X$, an arbitrary element of the nullspace of $M$.
+Following the line of reasoning above in the reverse order we have
+\begin{gather*}
+    AX = A^{-1} X, \\
+    \intertext{left-multiplying by $A$:}
+    A^2 X = X,
+\end{gather*}
+and $X$ is an eigenvector of $A^2.$
+Rotation $A^2$ is equivalent to the rotation with spin $\rho(U,2\theta)$. 
+Since $\theta$ is neither $0$ nor $\pi$, $X$ can be an eigenvector of $A^2$ only if it lies in the axis of rotation of $A^2$:
+\[ X \in \span U. \]
+Therefore, $\nll M = \spn U$.
+
+Since $\dim \nll M = 1$, we conclude, by the rank-nullity theorem, that the rank of $M$ is $2$, as required.
+
+We have that $X$ lies in the subspace spanned by vector $U$, let $X = c\,U$.
+Since $U$ is an eigenvector of $A$ with eigenvalue $1$, we have:
+\[ AU = U, \quad cAU = c\,U, \quad AX = X, \]
+so $X$ is also an eigenvector of $A$ with eigenvalue $1$, as required.
+
+\end{proof}
+
+\begin{tcolorbox}
+b) Find such an eigenvector explicitly in terms of the entries of the matrix $A$.
+\end{tcolorbox}
+
+\begin{proof}
+
+We can write $M$ in terms of entries of $A$ explicitly:
+\[
+    M =    
+    \begin{pmatrix}
+    0 & a_{12} - a_{21} & a_{13} - a_{31} \\
+    a_{21} - a_{12} & 0 & a_{23} - a_{32} \\
+    a_{31} - a_{13} & a_{32} - a_{23} & 0
+    \end{pmatrix}
+\]
+It can be shown that vector
+\[ X = \left( \frac{a_{23} - a_{32}}{a_{12} - a_{21}}, \frac{a_{31}-a_{13}}{a_{12} - a_{21}}, 1 \right) \]
+spans the nullspace of $M$.
+Any nonzero multiple of $X$ is therefore an eigenvector of $A$.
+
+\end{proof}
+
+
+\subsection*{Problem 4}
+
+\begin{tcolorbox}
+The space $\mathcal{C}$ of continuous functions $f(u)$ on the interval $[0,1]$ is one of many infinite-dimensional analogues of $\R^n$, and continuous functions $A(u,v)$ on the square $0 \leq u,v \leq 1$ are infinite-dimensional analogues of matrices.
+The integral
+\[ A \cdot f = \int_0^1 A(u,v) f(v) dv \]
+is analogous to multiplication of a matrix and a vector.
+This problem treats the integral as a linear operator.
+
+For the function $A = u+v$, determine the image of the operator explicitly.
+Determine its nonzero eigenvalues, and describe its kernel in terms of the vanishing of some integral.
+\end{tcolorbox}
+
+\begin{proof}
+
+Substituting $A = u+v$ we have
+\[ A \cdot f = \int_0^1 (u+v) f(v) dv = u\int_0^1 f(v) dv + \int_0^1 v f(v) dv, \]
+which is a linear function in $u$.
+Therefore, every function in the image of $A$ is linear.
+
+Since $A$ is a linear operator, its image must be a subspace of $\mathcal{C}$.
+We will prove that $A$ has at least rank $2$.
+Consider image of function $h_1 : u \mapsto 1$ under $A$:
+\[ 
+    A \cdot h_1
+    = \int_0^1 1 \cdot (u+1) dv 
+    = u+1.
+\]
+Consider image of function $h_2 : u \mapsto u$ under $A$:
+\[
+    A \cdot h_2
+    = \int_0^1 v (u+v) dv 
+    = \int_0^1 (vu + v^2) dv 
+    = \frac{u}{2} + \frac{1}{3}.
+\]
+We can see that $A \cdot h_1$ and $A \cdot h_2$ are linearly independent, thus rank of $A$ is, at least, $2$.
+Subspace of linear functions on $[0,1]$ has dimension $2$.
+Therefore, image of $A$ is the subspace of linear functions on $[0,1]$.
+
+Consider $w$, a nonzero eigenvector of $A$ with eigenvalue $\lambda$.
+\[ A \cdot w = \lambda w. \]
+Denote $a = \int_0^1 w(v) dv$, $b = \int_0^1 v w(v) dv$, and $w(u) = au+b$.
+Substituting:
+\[ (\lambda a) u + \lambda b = u \int_0^1 (av+b) dv + \int_0^1 v(av+b) dv. \]
+Thus:
+\begin{align*}
+    \lambda a = \int_0^1 (av+b) dv, &&
+    \lambda b = \int_0^1 v(av+b) dv, \\
+    \lambda a = \frac{a}{2} + b, && 
+    \lambda b = \frac{a}{3} + \frac{b}{2}, \\
+    2 \lambda a = a + 2b, &&
+    6 \lambda b = 2a + 3b, \\
+    (1-2\lambda)a + 2b = 0, &&
+    2a + (3-6\lambda)b = 0,
+\end{align*}
+We can rewrite this system of equations in the matrix form:
+\[
+    P
+    X
+    = 0.
+\]
+where 
+\[
+    P =
+    \begin{pmatrix}
+        1-2\lambda & 2 \\
+        2 & 3-6\lambda
+    \end{pmatrix},
+    \quad
+    X = 
+    \begin{pmatrix}
+        a \\
+        b
+    \end{pmatrix}.
+\]
+Since $X \neq 0$, matrix $P$ must be singular.
+We solve $\det P = 0$ for $\lambda$ with
+\[ \det P = 12 \lambda^2 - 12 \lambda - 1, \]
+ and get eigenvalues of $A$:
+ \[ \lambda = \frac{1}{2} \pm \frac{1}{\sqrt{3}}. \]
+
+Kernel of $A$ is a subspace of functions $g(u)$ in $\mathcal{C}$ such that:
+\[ A \cdot g = au + b = 0, \]
+which is only the case as long as $a = 0$ and $b = 0$, i.e.:
+\[  \int_0^1 g(v) dv = 0 \quad \text{and} \quad \int_0^1 v g(v) dv = 0. \]
+Since $g$ is continuous, the second expression, with integral bounds $[0,1]$, is zero only if $g(v) = 0$ for all $v \in [0,1]$.
+Therefore, kernel of $A$ is trivial.
+
+\end{proof}
+
+\begin{tcolorbox}
+Do the same for the function $A = u^2 + v^2$.
+\end{tcolorbox}
+
+\begin{proof}
+
+Substituting $A = u^2 + v^2$ we have
+\[ A \cdot f = \int_0^1 (u^2+v^2)f(v) dv = u^2 \int_0^1 f(v) dv + \int_0^1 v^2 f(v) dv, \]
+which is a quadratic polynomial.
+Therefore, image of $A$ lies in the subspace $P_2$ of polynomials of degree at most $2$ (dimension $3$).
+Consider image of function $h_1 : u \to 1$ under $A$:
+\[ A \cdot h_1 = u^2 + \frac{1}{3}. \]
+Consider image of function $h_2 : u \to u$ under $A$:
+\[ A \cdot h_2 = \frac{u^2}{2} + \frac{1}{4} . \]
+We can see that $A \cdot h_1$ and $A \cdot h_2$ are linearly independent, thus rank of $A$ is, at least, $2$.
+
+By the general form of $A \cdot f$ we can see that no elements $f$ of $\mathcal{C}$ is mapped to a polynomial with nonzero linear monomial.
+Therefore, image of $A$ is quadratic polynomials of the form $p(u) = au^2 + b$.
+
+Consider $w$, nonzero eigenvalue of $A$.
+Denote $a = \int_0^1 w(v) dv$, $b = \int_0^1 v^2 w(v) dv$, and $w(u) = au^2+b$.
+We have:
+\[ A \cdot w = \lambda w, \]
+\[ (\lambda a) u^2 + \lambda b = u^2 \int_0^1 (av^2 + b) dv + \int_0^1 (av^4 + bv^2) dv \]
+Thus:
+\begin{align*}
+    \lambda a = \int_0^1 (av^2 + b) dv, &&
+    \lambda b = \int_0^1 (av^4 + bv^2) dv, \\
+    \lambda a = \frac{a}{3} + \frac{b}{2}, &&
+    \lambda b = \frac{a}{5} + \frac{b}{3}, \\
+    6 \lambda a = 2a + 3b, &&
+    15 \lambda b = 3a + 5b, \\
+    (2-6\lambda)a + 3b = 0, &&
+    3a + (5-15\lambda)b = 0.
+\end{align*}
+Equivalently:
+\[
+    P
+    X
+    = 0.
+\]
+where 
+\[
+    P =
+    \begin{pmatrix}
+        2-6\lambda & 3 \\
+        3 & 5-15\lambda
+    \end{pmatrix},
+    \quad
+    X = 
+    \begin{pmatrix}
+        a \\
+        b
+    \end{pmatrix}.
+\]
+We solve $\det P$ for $\lambda$ with:
+\[ \det P = 90 \lambda^2 - 60 \lambda + 1, \]
+and get eigenvalues of $A$:
+\[ \lambda = \frac{1}{3} \pm \frac{1}{\sqrt{10}}. \]
+
+To find the kernel of $A$ we write
+\[ A \cdot g = au^2 + b = 0, \]
+which is only the case as long as $a = 0$ and $b = 0$, i.e.:
+\[ \int_0^1 g(v) dv = 0 \quad \text{and} \quad \int_0^1 v^2 g(v) dv = 0. \]
+Since $g$ is continuous, the second expression, with integral bounds $[0,1]$, is zero only if $g(v) = 0$ for all $v \in [0,1]$.
+Therefore, kernel of $A$ is trivial.
+
+\end{proof}
+
+
+\subsection*{Problem 5}
+
+\begin{tcolorbox}
+Let $f$ and $g$ be rotations of the plane about distinct points, with arbitrary nonzero angles of rotation $\theta$ and $\phi$.
+Prove that the group generated by $f$ and $g$ contains a translation.
+\end{tcolorbox}
+
+\begin{proof}
+
+We can represent isometry $f$ as $t_v \rho_\theta$; and $g$ as $t_w \rho_\phi$.
+Let $G$ be a group generated by isometries $f$ and $g$.
+
+We consider homomorphism $\pi \restrict{G} : G \to O_2$.
+Consider element $h = f^{-1} g^{-1} f g$ of $G$.
+\[
+    \pi (h)
+    = \pi (g^{-1} f^{-1} g f) 
+    = \pi (g^{-1}) \pi (f^{-1}) \pi (g) \pi(f)
+    = \rho_\phi^{-1} \rho_\theta^{-1} \rho_\phi \rho_\theta
+\]
+We know that $\rho_{\alpha}^{-1} = \rho_{(-\alpha)}$ and $\rho_\alpha \rho_\beta = \rho_{(\alpha + \beta)}$, hence:
+\[ 
+    \pi (h)
+    = \rho_{(-\phi-\theta+\phi+\theta)} = \rho_0 = 1.
+\]
+Kernel of $\pi \restrict{G}$ is the group of translations of $G$.
+Since $h$ is in the kernel of $\pi$, it is a translation.
+
+We will check that $h$ is not the identity of $G$.
+Choose coordinates such that $v$ is the origin, then $f = \rho_\theta$.
+Suppose $h = g^{-1} f^{-1} g f = 1$, then:
+\begin{gather*}
+    gf = fg, \\
+    t_w \rho_\phi \rho_\theta = \rho_\theta t_w \rho_\phi, \\
+    t_w = t_{w'}, \\
+    w = w',
+\end{gather*}
+where $w' = \rho_\theta(w)$.
+Expression $w = \rho_\theta(w)$ is true if and only if $w$ is the origin.
+However, then both $v$ and $w$ must be the origin and $v=w$, which contradicts the problem statement.
+Therefore, $h \neq 1$.
+
+We conclude that element $f^{-1} g^{-1} f g$ of $G$ is a translation by nonzero vector.
+
+\end{proof}
+
+
+\end{document}

@@ -16,10 +16,10 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
-\newcommand{\GL}[2]{\operatorname{GL}_{#1}(#2)}
-\newcommand{\GLnR}{\GL{n}{\R}}
-\newcommand{\SL}[2]{\operatorname{SL}_{#1}(#2)}
-\newcommand{\SLnR}{\SL{n}{\R}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\GLnR}{\GL_n(\R)}
+\newcommand{\SLnR}{\SL_n(\R)}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 
@@ -39,8 +39,10 @@ Prove that, for $n \geq 3$, the three-cycles generate the alternating group $A_n
 \begin{proof}
 
 Since no three-cycle is a member of $A_n$ with $n < 3$ we proceed for $n \geq 3$.
-Alternating group $A_n$ is a group of even permutations of the set. Even permutation is a permutation that can be represented as a product of even number of transpositions (two-cycles). 
-Consider arbitrary element $x \in A_n$. Using this presentation of $x$, combine two-cycles into pairs starting from the first one. Within each pair, transpositions are either disjoint or not disjoint.
+Alternating group $A_n$ is a group of even permutations of the set.
+Even permutation is a permutation that can be represented as a product of even number of transpositions (two-cycles). 
+Consider arbitrary element $x \in A_n$. Using this presentation of $x$, combine two-cycles into pairs starting from the first one.
+Within each pair, transpositions are either disjoint or not disjoint.
 If they are disjoint, product of such pair of transposition can always be represented as product of $2$ three-cycles.
 \[ (ab)(fg) = (ab)(bf)(bf)(fg) = (abf)(bfg) \]
 If they are not disjoint, product of such pair of transpositions is equal to a three-cycle:
@@ -86,7 +88,8 @@ We first consider elementary matrix $E^{\times}(i, \lambda)$ that multiplies $i$
 \]
 For these matrices to be equal, the following must hold:
 \[ x = \lambda x, \quad y = \lambda y, \quad \dots \]
-More generally, each non-diagonal entry $a_{ij} (i \neq j)$ must be equal to $\lambda a_{ij}$. This is only possible if $a_{ij} = 0$.
+More generally, each non-diagonal entry $a_{ij} (i \neq j)$ must be equal to $\lambda a_{ij}$.
+This is only possible if $a_{ij} = 0$.
 
 We then consider elementary matrix $E^{+}(i, j, \lambda)$ that adds $\lambda$-multiple of $i$-th row or column to $j$-th row or column.
 For example, for $i=1, j=2$:
@@ -106,9 +109,12 @@ For example, for $i=1, j=2$:
         0 & 0 & \dots & c
     \end{bmatrix}
 \]
-For these matrices to be equal $a$ must be equal to $b$. More generally, all diagonal entries must be equal. We conclude that matrices
+For these matrices to be equal $a$ must be equal to $b$.
+More generally, all diagonal entries must be equal. 
+We conclude that matrices
 \[ D = \{ \lambda I_n : \lambda \in \R \} \]
-(matrices with the same diagonal entries) commute with elementary matrices $E^{\times}$ and $E^{+}$. Therefore, they must commute with every element of $\GLnR$, thus $D = \operatorname{Z}(\GLnR)$.
+(matrices with the same diagonal entries) commute with elementary matrices $E^{\times}$ and $E^{+}$. 
+Therefore, they must commute with every element of $\GLnR$, thus $D = \operatorname{Z}(\GLnR)$.
 
 
 \subsection*{Problem 3}
@@ -160,7 +166,8 @@ Let $S$ be a set with a law of composition. A partition $\Pi_1 \cup \Pi_2 \cup \
 \[ \Pi_i \Pi_j = \{ xy \mid x \in \Pi_i, y \in \Pi_j \} \]
 is contained in a single subset $\Pi_k$ of the partition.
 
-a) The set $\Z$ of integers can be partitioned into three sets [Pos], [Neg], [\{0\}]. Discuss the extent to which the laws of composition $+$ and $\times$ are compatible with this partition.
+a) The set $\Z$ of integers can be partitioned into three sets [Pos], [Neg], [\{0\}].
+Discuss the extent to which the laws of composition $+$ and $\times$ are compatible with this partition.
 
 \end{tcolorbox}
 
@@ -215,7 +222,8 @@ Therefore, $\Pi_e$ must be a group, specifically a subgroup of $\Z^+$.
 
 \end{proof}
 
-Thus, $\Pi_e$ is either $[\{0\}]$, $[\Z]$ or $[\Z a]$ where $a \in \N$. From this we have the following possible partitions of $\Z$ that are compatible with $+$:
+Thus, $\Pi_e$ is either $[\{0\}]$, $[\Z]$ or $[\Z a]$ where $a \in \N$.
+From this we have the following possible partitions of $\Z$ that are compatible with $+$:
 \begin{itemize}
     \item Partition by singletons: $\bigcup_{q \in \Z} [\{q\}]$;
     \item Single-set partition: $[\Z]$;
@@ -264,11 +272,11 @@ E' =
         1 & 1
     \end{pmatrix}
 \end{align*}
-generate the group $\SL{2}{\Z}$ of all integer matrices with determinant $1$. 
+generate the group $\SL_2(\Z)$ of all integer matrices with determinant $1$. 
 Remember that the subgroup they generate consists of all elements that can be expressed as products using the four elements $E, E', E^{-1}, E'^{-1}$.
 \end{tcolorbox}
 
-Consider arbitrary element of $\SL{2}{\Z}$:
+Consider arbitrary element of $\SL_2(\Z)$:
 \[ A =
     \begin{pmatrix}
         a & b \\
@@ -279,7 +287,7 @@ such that $\det A = ad - bc = 1$.
 We will further refer to the bottom-left element ($a_{21}$) of any matrix as $c$ and to the bottom-right element ($a_{22}$) of any matrix as $d$.
 
 \begin{claim}
-Matrix $A$ can be column-reduced via right-multiplications by matrices $E$, $E'$ and their inverses to a matrix $A^*$ with $c = 0$ and $d > 0$.
+Matrix $A$ can be column-reduced via right-multiplications by matrices $E$, $E'$ and their inverses to a matrix $A'$ with $c = 0$ and $d > 0$.
 \end{claim}
 
 \begin{proof}
@@ -376,9 +384,11 @@ If $c > d$ we right-multiply $A$ by $(E')^{-n}$ where $n = \floor*{ \frac{c}{d} 
 \]
 where $d$ is a quotient and $(c-dn)$ is a remainder after the first iteration of Euclidean algorithm.
 
-We proceed and after a finite number of iterations we have either $c=0, d>0$ or $d=0, c>0$. In the former case we have our conclusion. Otherwise, we further right-multiply by $(E' E^{-1} E')$ in order to arrive at matrix $A^*$:
+We proceed and after a finite number of iterations we have either $c=0, d>0$ or $d=0, c>0$.
+In the former case we have our conclusion.
+Otherwise, we further right-multiply by $(E' E^{-1} E')$ in order to arrive at matrix $A'$:
 \[
-    A^* =
+    A' =
     \begin{pmatrix}
         a & b \\
         c & 0
@@ -401,23 +411,23 @@ $
 \bigr)
 =1 $, therefore $-bc=1$ and since $c > 0$, we have $b = -1$; thus
 \[
-    A^* =
+    A' =
     \begin{pmatrix}
         1 & a \\
         0 & c
     \end{pmatrix}
 \]
-and we have $A^*$ as requested.
+and we have $A'$ as requested.
 
 \end{proof}
 
 \begin{corollary}
-Since $c = 0$ and $d > 0$ for $A*$, then $\det A^* = ad = 1$, therefore $a=d=1$ and $A = E^k$ for some $k \in \Z$ and:
+Since $c = 0$ and $d > 0$ for $A'$, then $\det A' = ad = 1$, therefore $a=d=1$ and $A = E^k$ for some $k \in \Z$ and:
 \begin{gather*}
-    A E_1 E_2 \cdots E_n  = A^* = E^k \\
+    A E_1 E_2 \cdots E_n  = A' = E^k \\
     A = E^k E_n^{-1} \cdots E_2^{-1} E_1^{-1},
 \end{gather*}
-i.e. any element $A \in \SL{2}{\Z}$ can be represented as a product of matrices $E$, $E'$ and their inverses. Thus $E$ and $E'$ generate $\SL{2}{\Z}$.
+i.e. any element $A \in \SL_2(\Z)$ can be represented as a product of matrices $E$, $E'$ and their inverses. Thus $E$ and $E'$ generate $\SL_2(\Z)$.
 \end{corollary}
 
 \end{document}
