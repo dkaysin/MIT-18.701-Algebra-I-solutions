@@ -527,4 +527,93 @@ such that every $\alpha_i$ is different and  $\sum k_i = n$.
 \end{proof}
 
 
+\subsection*{Additional Problem 1}
+
+\begin{tcolorbox}
+Let $V$ be a finite-dimensional vector space. A linear operator $T: V \to V$ is called a projection if $T^2 = T$ (not necessarily an "orthogonal projection").
+Let $K$ and $W$ be the kernel and image of a linear operator $T$.
+Prove
+
+a) $T$ is a projection onto $W$ if and only if the restriction of $T$ to $W$ is the identity map.
+\end{tcolorbox}
+
+We first proof the following claim.
+
+\begin{claim}
+Any surjective operator $P : U \to U$ is invertible.
+\end{claim}
+
+\begin{proof}
+By the rank-nullity theorem:
+\begin{gather*}
+    \dim U = \dim \ker P + \dim \im P, \\
+    \dim U = \dim \ker P + \dim U, \\
+    \dim \ker P = 0,
+\end{gather*}
+therefore, any surjective operator is invertible.
+\end{proof}
+
+We proceed with the proof of the problem.
+
+\begin{proof}
+($\Longrightarrow$):
+Suppose $T^2 = T$ on $V$, then $T^2\restrict{W} = T\restrict{W}$.
+Map $T\restrict{W}: W \to W$ is a surjective operator, thus invertible.
+Left multiplying $T^2\restrict{W} = T\restrict{W}$ by $\left(T\restrict{W}\right)^{-1}$ we have $T\restrict{W} = I$, as requested.
+
+($\Longleftarrow$):
+Suppose $T \restrict{W} = I$.
+Since image of $T$ is $W$, we have $T^2 = T\restrict{W}T = T$, as requested.
+
+\end{proof}
+
+\begin{tcolorbox}
+b) If $T$ is a projection, then $V$ is the direct sum $W \oplus K$.
+\end{tcolorbox}
+
+\begin{proof}
+
+Consider $v$, an arbitrary element of $W \cap K$.
+Then $v$ is in the image of $T$, we have $Tv = v$.
+Since $v$ is in the kernel of $V$, we have $Tv = 0$.
+We conclude that $v = 0$ and $W \cap K = \set{0}$.
+
+Since intersection of $W$ and $K$ is zero and by the rank-nullity theorem, we have
+\[ \dim (W+K) = \dim W + \dim K = \dim V. \]
+Since $W+K$ are subsets of $V$ and dimension of their sum $W+K$ is equal to the dimension of the space $V$ itself, we conclude that $W+K$ spans $V$.
+Since $W \cap K = \set{0}$, we have that $V$ is a direct sum of $W$ and $K$, as requested.
+
+\end{proof}
+
+\begin{tcolorbox}
+c) The trace of a projection $T$ is equal to its rank.
+\end{tcolorbox}
+
+\begin{proof}
+
+Suppose $V$ has dimension $n$ and suppose projection $T$ has rank $m$.
+Choose arbitrary basis of $W$, denote it $\set{w_1, \dots, w_m}$.
+We can extend this basis to the basis of $V$:
+\[ B = \set{w_1, \dots, w_m, k_1, \dots, k_{n-m}}. \]
+By part b) of the problem, $W \oplus K = V$, therefore each $k_i$ must be an element of $K$.
+Then, each $k_i$ is in the kernel of $T$, therefore $T k_i = 0$.
+Since each vector $w_i$ is in the image of $T$, by part a) of the problem, we have that $T v_i = v_i$.
+
+Matrix representation of $T$ with regards to basis $B$ will have the following form:
+\[
+    \begin{pmatrix}
+        1 \\
+        & \ddots \\
+        & & 1 \\
+        & & & 0 \\
+        & & & & \ddots \\
+        & & & & & 0
+    \end{pmatrix}
+\]
+with $m$ ones and $n-m$ zeroes on the diagonal.
+Such matrix has trace $m$. Therefore $T$ has trace $m$ equal to the rank of $T$, as required.
+
+\end{proof}
+
+
 \end{document}
