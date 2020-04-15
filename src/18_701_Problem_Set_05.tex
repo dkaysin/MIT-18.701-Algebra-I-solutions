@@ -26,6 +26,7 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\operatorname{D}}
 \newcommand{\GL}{\operatorname{GL}}
 \newcommand{\SL}{\operatorname{SL}}
 \newcommand{\GLnR}{\GL_n(\R)}
@@ -43,6 +44,76 @@
 \date{April 2020}
 \begin{document}
 \maketitle 
+
+
+\subsection*{Preliminary Problem 1}
+
+\begin{tcolorbox}
+Let $A$ be $m \times m$ and $B$ be $n \times n$ complex matrices, and consider the linear operator $T$ on the space $\C^{m \times n}$ of all complex $m \times n$ matrices defined by $T(M) = AMB$.
+
+a) Show how to construct an eigenvector for $T$ out of a pair of column vectors $X,Y$, where $X$ is an eigenvector for $A$ and $Y$ is an eigenvector for $B^t$.
+\end{tcolorbox}
+
+Denote $\alpha$ the eigenvalue of the eigenvector $X$, i.e. $AX = \alpha X$.
+Denote $\beta$ the eigenvalue of the eigenvector $Y$, i.e. $B^t Y = \beta Y$.
+Eigenvector $P \in \C^{m \times n}$ of $T$ must satisfy:
+\[ T(P) = APB = t P, \]
+which means that for any vector $V \in \C^n$:
+\[ T(P) V = APB V = t P V, \]
+where $t$ is the same for all $V$.
+
+Consider linear map $P : \C^n \to \spn X$, which can be represented as $P = f(V) \cdot X$, where $f$ is linear functional $f : \C^n \to \C$.
+
+For such $P$ and for any $V \in \C^n$ we have:
+\begin{gather*}
+    PV = X f(V), \\
+    APBV 
+    = A X f(BV) 
+    = \alpha X f(BV), \\
+    \intertext{and}
+    T(P)V = \alpha \frac{f(BV)}{f(V)} PV.
+\end{gather*}
+If $\frac{f(BV)}{f(V)}$ is equal to constant $\lambda$ for all $V$, then $P$ is an eigenvector of $T$ with eigenvalue $\alpha \lambda$.
+We can represent $f$ as left-multiplication by some row vector $R^t$:
+\[ f(V) = R^t V. \]
+Therefore we must have
+\begin{gather*}
+    \frac{R^t BV}{R^t V} = \lambda, \\
+    R^t BV = \lambda R^t V, \\
+    (B^t R)^t V = \lambda R^t V,
+\end{gather*}
+which is the case if and only if $R$ is an eigenvector of $B^t$, i.e. $R = Y$.
+In this case, $\lambda = \beta$.
+We conclude that map $X Y^t$ is an eigenvector of $T$.
+
+We also note that nonzero vectors $X_0$ and $Y_0$ in the kernel of $A$ and $B^t$ (if any exist) are eigenvectors of $A$ and $B^t$, respectively, with eigenvalue $0$.
+Any map $X_0 Y_0^t$ will be a nonzero eigenvector of $T$ with eigenvalue $0$.
+
+\begin{tcolorbox}
+b) Determine the eigenvalues of $T$ in terms of those of $A$ and $B$.
+\end{tcolorbox}
+
+Choose some eigenvector $P$ of $T$, which has the form $X Y^t$ with $X$ being an eigenvector of $A$, and $Y$ being an eigenvector of $B^t$.
+Eigenvalue of $P$ is $\alpha \beta \neq 0$, where $\alpha \neq 0$ is the eigenvalue of $X$ and $\beta \neq 0$ is the eigenvalue of $Y$.
+
+Therefore, the set of eigenvalues of $T$ is the set of all pairwise products between eigenvalues of $A$ and eigenvalues of $B^t$.
+Since $B^t$ and $B$ have the same characteristic polynomial, they must have the same sets of eigenvalues.
+We conclude that the set of eigenvalues of $T$ is
+\[ \set*{ \alpha \beta : \text{$\alpha$ is an eigenvalue of $A$, $\beta$ is an eigenvalue of $B$} }. \]
+
+\begin{tcolorbox}
+c) Determine the trace of this operator.
+\end{tcolorbox}
+
+Trace of the operator is equal to the sum of its eigenvalues:
+\[ \trace T = \sum_i \sum_j \alpha_i \beta_j, \]
+where $\alpha_i$ and $\beta_j$ is the enumeration of nonzero eigenvalues of $A$ and $B$, respectively.
+We also notice that
+\begin{align*}
+    \trace T 
+    & = \sum_i \sum_j \alpha_i \beta_j = a_1 \sum_j \beta_j + a_2 \sum_j \beta_j + \dots = \sum_i \alpha_i \cdot \sum_j \beta_j \\
+    & = \trace A \cdot \trace B.    
+\end{align*}
 
 
 \subsection*{Problem 1}
@@ -244,7 +315,7 @@ Following the line of reasoning above in the reverse order we have
 and $X$ is an eigenvector of $A^2.$
 Rotation $A^2$ is equivalent to the rotation with spin $\rho(U,2\theta)$. 
 Since $\theta$ is neither $0$ nor $\pi$, $X$ can be an eigenvector of $A^2$ only if it lies in the axis of rotation of $A^2$:
-\[ X \in \span U. \]
+\[ X \in \spn U. \]
 Therefore, $\nll M = \spn U$.
 
 Since $\dim \nll M = 1$, we conclude, by the rank-nullity theorem, that the rank of $M$ is $2$, as required.
