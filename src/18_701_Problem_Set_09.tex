@@ -304,15 +304,85 @@ Therefore, matrix of the form with respect to basis $B'$ (after rearranging basi
 \begin{tcolorbox}
 Let $T$ be a linear operator on $V = \R^n$ whose matrix $A$ is a real symmetric matrix.
 
-a) Prove that $V$ is the orthogonal sum $V = (\ker T) \oplus (\im T)$.
+a) Prove that $V$ is the orthogonal sum $V = (\im T) \oplus (\ker T)$.
 \end{tcolorbox}
+
 \begin{proof}
+
+We assume the form defined on $V$ to be the standard dot product, which is positive definite.
+Since $A$ is a real symmetric matrix, then by the Spectral theorem, there exists an orthonormal basis of $V$ consisting of eigenvectors of $A$, denote it $B = \set{v_1, v_2, \dots, v_n}$.
+Consider image of each basis vector of $B$ under $T$:
+\[
+	\begin{pmatrix}
+		v_1 \\
+		v_2 \\
+		\vdots \\
+		v_n
+	\end{pmatrix}
+	\longmapsto
+	\begin{pmatrix}
+		\lambda_1 v_1 \\
+		\lambda_2 v_2 \\
+		\vdots \\
+		\lambda_n v_n
+	\end{pmatrix},
+\]
+where some of $\lambda_i$ might be zero.
+Without loss of generality, suppose that $\lambda_1, \dots, \lambda_k \neq 0$ while $\lambda_{k+1}, \dots, \lambda_n = 0$.
+Image of any nonzero vector in the span of $\set{v_1, \dots, v_k}$ under $T$ is nonzero, while image of any vector in the span of $\set{v_{k+1}, \dots, v_n}$ under $T$ is the zero vector, thus:
+\begin{align*}
+	\im T & = \spn \set{v_1, \dots, v_k}, \\
+	\ker T & = \spn \set{v_{k+1}, \dots, v_n}.
+\end{align*}
+Since vectors of $B$ are orthogonal, thus $\im T$ and $\ker T$ are orthogonal subspaces that together span $V$.
+We conclude that $(\im T) \oplus (\ker T) = V$, as required.
+
 \end{proof}
 
 \begin{tcolorbox}
 b) Prove that $T$ is an orthogonal projection onto $\im T$ if and only if, and addition to being symmetric, $A^2=A$.
 \end{tcolorbox}
+
 \begin{proof}
+
+Operator $T$ is orthogonal if and only if $T$ is a projection and $\im T$ and $\ker T$ are orthogonal.
+By definition, $T$ is a projection if and only if $T^2 = T$.
+Let $A$ be the matrix of $T$ with respect to an arbitrary basis.
+
+($\Rightarrow$)
+Suppose, $A^2 = A$ and $A$ is symmetric.
+By definition, $A$ is a projection matrix, thus $T$ is a projection.
+As we have seen in a), since $A$ is symmetric, $\im T$ and $\ker T$ are orthogonal.
+We conclude that $T$ is an orthogonal projection.
+
+($\Leftarrow$)
+Suppose that $T$ is an orthogonal projection, which means that $T$ is a projection and $\im T$ is orthogonal to $\ker T$.
+It immediately follows that $A^2=A$.
+We will prove that matrix $A$ is symmetric, i.e. $A^t = A$.
+
+Consider arbitrary vectors $v, w \in V$.
+Since $T$ is an orthogonal projection onto $\im T$, we can res present each vector $v$ and $w$ as a sum of two orthogonal vectors:
+\[
+	v = v_n + \pi(v), \>\> w = w_n + \pi(w).
+\]
+From this we have:
+\[
+	\bilform{Tv, w} 
+	= \bilform{\pi(v), w_n + \pi(w)} 
+	= \bilform{\pi(v), w_n} + \bilform{\pi(v), \pi(w)}
+	= \bilform{\pi(v), \pi(w)}
+\]
+since $\bilform{\pi(v), w_n} = 0$.
+Conversely: 
+\[
+	\bilform{v, Tw} 
+	= \bilform{v_n + \pi(v), \pi(w)} 
+	= \bilform{v_n, \pi(w)} + \bilform{\pi(v), \pi(w)}
+	= \bilform{\pi(v), \pi(w)}.
+\]
+We have that $\bilform{Tv, w} = \bilform{v, Tw}$ for arbitrary vectors $v,w \in V$, which means that $T$ is self-adjoint.
+Matrix of a real self-adjoint operator is symmetric, as required.
+
 \end{proof}
 
 
