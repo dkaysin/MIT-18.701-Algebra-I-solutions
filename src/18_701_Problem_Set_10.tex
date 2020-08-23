@@ -72,9 +72,9 @@ Eigenvalues of $A$ are thus
     \lambda = \frac{r \pm \sqrt{r^2-4}}{2}.
 \]
 As $r \to \infty : \lambda \to \pm \infty$ and
-as $r \to -\infty : \lambda \to \pm 0$.
-For $r$ in the interval $(\-\infty, -2] \cup [2, \infty)$ eigenvalues of $A$ are real.
-For $r$ in the interval $(-2, 2)$ eigenvalues of $A$ are complex, occur in conjugate pairs and their locus is upper and lower half of the unit circle of the complex plane.
+as $r \to -\infty : \lambda \to \mp 0$.
+For $r$ in the interval $(-\infty, -2] \cup [2, \infty)$ eigenvalues of $A$ are real.
+For $r$ in the interval $(-2, 2)$ eigenvalues of $A$ are complex, occur in conjugate pairs and their locus is upper and lower half of the unit circle on the complex plane.
 
 \begin{figure}[h]
     \caption{Possible eigenvalues of $A \in \SL_2$ in the complex plane.}
@@ -88,7 +88,57 @@ b) For each $\lambda$, decompose the set of matrices $P \in \SL_2$ with eigenval
 \end{tcolorbox}
 
 \begin{proof}
-Conjugate matrices have the same characteristic polynomial and the same eigenvalues.
+
+We claim that for every matrix $A$ with complex eigenvalues $\lambda$ and $\overline{\lambda}$ there exists a matrix $Q \in \SL_2$ such that 
+$Q^t A Q = \Lambda = \begin{pmatrix} \lambda & \\ & \overline{\lambda} \end{pmatrix}$.
+
+Let $X = (u, v)^t$ be a unit eigenvector of $A$ with eigenvalue $\lambda$.
+Then $Y = (-v,u)^t$ is also a unit eigenvector of $A$ with eigenvalues $\overline{\lambda}$. [PROVE]
+Let 
+$
+    Q =
+    \begin{pmatrix}
+        u & -v \\
+        v & u
+    \end{pmatrix}
+$, then
+\begin{align*}
+    Q^t A Q & = 
+    \begin{pmatrix}
+        u & v \\
+        -v & u
+    \end{pmatrix}
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}
+    \begin{pmatrix}
+        u & -v \\
+        v & u
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        u & v \\
+        -v & u
+    \end{pmatrix}
+    \begin{pmatrix}
+        \lambda u & -\overline{\lambda} v \\
+        \lambda v & \overline{\lambda} u
+    \end{pmatrix}
+    \\
+    & = 
+    \begin{pmatrix}
+        \lambda(u^2+v^2) & - \overline{\lambda} uv + \overline{\lambda} uv \\
+        - \lambda uv + \lambda uv & \overline{\lambda} (v^2 + u^2)
+    \end{pmatrix}
+    = 
+    \begin{pmatrix}
+        \lambda &  \\
+         & \overline{\lambda}
+    \end{pmatrix}.
+\end{align*}
+
+
 \end{proof}
 
 \begin{tcolorbox}
@@ -101,6 +151,52 @@ c) Determine the matrices $P \in \SL_2$ that can be obtained as $P = e^A$ for so
 \subsection*{Problem 2}
 
 \begin{tcolorbox}
+According to Sylvester's Law, every $2 \times 2$ real symmetric matrix is congruent to exactly one of six standard types.
+List them.
+If we consider the operation of $\GL_2$ on $2 \times 2$ matrices by $P * A = PAP^t$, then Sylvester's Law asserts that the symmetric matrices form six orbits.
+We may view the symmetric matrices as points in $\R^3$, letting $(x,y,z)$ correspond to the matrix
+$
+\begin{pmatrix}
+    x & y \\
+    y & z
+\end{pmatrix}
+$.
+Describe the decomposition of $\R^3$ into orbits geometrically, and make a clear drawing depicting it.
+\end{tcolorbox}
+
+\begin{proof}
+\end{proof}
+
+
+\subsection*{Problem 3}
+
+\begin{tcolorbox}
+This problem is about the space $V$ of real polynomials in the variables $x$ and $y$.
+If $f$ is a polynomial, $\partial_f$ will denote the operator 
+$f \left( \frac{\partial}{\partial x}, \frac{\partial}{\partial y}) \right)$,
+and $\partial_f(g)$ will denote the result of applying this operator to a polynomial $g$.
+
+a) The rule $\bilform{f,b} = \partial_f(g)_0$ defines a bilinear form on $V$, the subscript denoting evaluation of a polynomial at the origin.
+Prove that this form is symmetric and positive definite, and that the monomials $x^i y^j$ form an orthogonal basis of $V$ (not an orthonormal basis).
+
+b) We also have the operator of multiplication by $f$, which we write as $m_f$.
+So $m_f(g) = fg$.
+Prove that $\partial_f$ and $m_f$ are adjoint operators.
+
+c) When $f = x^2 + y^2$, the operator $\partial_f$ is the Laplacian, which is often written as $\Delta$.
+A polynomial $h$ is harmonic if $\Delta h = 0$.
+Let $H$ denote the space of harmonic polynomials.
+Identify the space $H^\perp$ orthogonal to $H$ with respect to the given form.
+\end{tcolorbox}
+
+\begin{proof}
+\end{proof}
+
+
+\subsection*{Problem 4}
+
+\begin{tcolorbox}
+Show that the vector cross product makes $\R^3$ into a Lie algebra $L_1$.
 \end{tcolorbox}
 
 \begin{proof}
