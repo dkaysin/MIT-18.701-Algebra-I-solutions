@@ -40,7 +40,8 @@
 \DeclarePairedDelimiter\bilform{\langle}{\rangle}
 \newcommand{\restrict}[1]{ \big|_{#1} }
 \newcommand{\evalat}[2]{\Big|_{#1}^{#2}}
-
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
 
 \title{18.701: Problem Set 10}
 \author{Dmitry Kaysin}
@@ -55,6 +56,12 @@
 a) Let $\SL_2$ be the special linear group of real matrices with determinant $1$.
 Determine the possible eigenvalues $\lambda$ (real or complex) of the elements of $\SL_2$, and make a drawing showing the points $\lambda$ in the complex plane.
 \end{tcolorbox}
+
+\begin{figure}[h]
+    \caption{Possible eigenvalues of $A \in \SL_2$ in the complex plane.}
+    \centering
+    \includegraphics[width=0.8\textwidth]{ps10p1}
+\end{figure}
 
 We start with $2 \times 2$ matrix of the form
 \[
@@ -71,82 +78,213 @@ Eigenvalues of $A$ are thus
 \[
     \lambda = \frac{r \pm \sqrt{r^2-4}}{2}.
 \]
+
+For $r$ in the interval $(-\infty, -2] \cup [2, \infty)$ eigenvalues of $A$ are real and occur in pairs $\lambda, \frac{1}{\lambda}$ since the product of eigenvalues of $A$ is the determinant of $A$, which is equal to $1$.
 As $r \to \infty : \lambda \to \pm \infty$ and
 as $r \to -\infty : \lambda \to \mp 0$.
-For $r$ in the interval $(-\infty, -2] \cup [2, \infty)$ eigenvalues of $A$ are real.
-For $r$ in the interval $(-2, 2)$ eigenvalues of $A$ are complex, occur in conjugate pairs and their locus is upper and lower half of the unit circle on the complex plane.
+Real eigenvalues of the elements $\SL_2$ can be any number in $\R^\times$.
 
-\begin{figure}[h]
-    \caption{Possible eigenvalues of $A \in \SL_2$ in the complex plane.}
-    \centering
-    \includegraphics[width=0.8\textwidth]{ps10p1}
-\end{figure}
+For $r$ in the interval $(-2, 2)$ eigenvalues of $A$ are complex, occur in conjugate pairs and their locus is upper and lower half of the unit circle on the complex plane.
+Complex eigenvalues of the elements of $\SL_2$ can be any number on the unit circle in the complex plane.
 
 
 \begin{tcolorbox}
 b) For each $\lambda$, decompose the set of matrices $P \in \SL_2$ with eigenvalue $\lambda$ into $\SL_2$-conjugacy classes.
 \end{tcolorbox}
 
-\begin{proof}
-
-We claim that for every matrix $A$ with complex eigenvalues $\lambda$ and $\overline{\lambda}$ there exists a matrix $Q \in \SL_2$ such that 
-$Q^t A Q = \Lambda = \begin{pmatrix} \lambda & \\ & \overline{\lambda} \end{pmatrix}$.
-
-Let $X = (u, v)^t$ be a unit eigenvector of $A$ with eigenvalue $\lambda$.
-Then $Y = (-v,u)^t$ is also a unit eigenvector of $A$ with eigenvalues $\overline{\lambda}$. [PROVE]
-Let 
+\paragraph{Case 1: $A$ has eigenvalues $\pm 1$.}
+Matrix $A$ has a real eigenvalue $\lambda$ of multiplicity $2$ equal to $1$ or $-1$.
+It also has either one or two distinct eigenvectors.
+If $A$ has two distinct eigenvectors, it must be diagonalizable, thus it must be similar to
 $
-    Q =
+\pm
+\begin{pmatrix}
+    1 & 0 \\
+    0 & 1
+\end{pmatrix}
+$.
+This is the first $\SL_2$-conjugacy class for $\lambda = \pm 1$.
+
+If $A$ has only one distinct eigenvector $v$, it must correspond to a shear transformation.
+We can choose the basis $B' = \set{v,v^\perp}$ where $v^\perp$ is orthogonal to $v$ and both $v$ and $v^\perp$ are unit vectors in the standard basis.
+Change of basis from the standard basis to $B'$ transforms $A$ via conjugation to one of
+$
+    A'_p =
     \begin{pmatrix}
-        u & -v \\
-        v & u
+        \pm 1 & a \\
+        0 & \pm 1
     \end{pmatrix}
-$, then
-\begin{align*}
-    Q^t A Q & = 
+$
+or
+$
+    A'_n =
     \begin{pmatrix}
-        u & v \\
-        -v & u
+        \pm 1 & -a \\
+        0 & \pm 1
     \end{pmatrix}
+$.
+We notice that 
+$
     \begin{pmatrix}
-        a & b \\
-        c & d
+        \pm 1 & a \\
+        0 & \pm 1
     \end{pmatrix}
+$
+is similar to
+$
     \begin{pmatrix}
-        u & -v \\
-        v & u
+        \pm 1 & 1 \\
+        0 & \pm 1
     \end{pmatrix}
+$
+via conjugation by matrix
+$
+    \begin{pmatrix}
+        a^{1/2} & a^{-1/2} \\
+        0 & a^{-1/2}
+    \end{pmatrix}
+$,
+which is an element of $\SL_2$.
+
+We note that matrices $A'_p$ and $A'_n$ are not similar to one another since they are similar via conjugation by
+$
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix}
+$,
+which has determinant $-1$ and thus is not an element of $\SL_2$.
+This provides two more $\SL_2$-conjugacy classes for $\lambda = \pm 1$.
+
+\paragraph{Case 2: $A$ has real eigenvalues $\set*{ \lambda, \frac{1}{\lambda} }$, $\lambda \neq 0, \> \lambda \neq \pm 1$.}
+Real eigenvalues of $A$ are distinct, thus $A$ can be diagonalized via conjugation by invertible matrix $S$ whose columns are coordinates of the eigenvectors of $A$:
+\[
+    S A S^{-1} = 
+    \begin{pmatrix}
+        \lambda & \\
+        & \nicefrac{1}{\lambda}
+    \end{pmatrix}.
+\]
+We note that we can always choose $S$ so that it is an element of $\SL_2$.
+We conclude that there is one $\SL_2$-conjugacy class for a given pair of real eigenvalues of $A$.
+
+\paragraph{Case 3: $A$ has complex eigenvalues $\lambda$ and $\overline{\lambda}$.}
+
+Consider 
+\[
+    v
     =
     \begin{pmatrix}
-        u & v \\
-        -v & u
+        x_1 + y_1 i \\
+        x_2 + y_2 i
     \end{pmatrix}
+    = X + iY,
+\] 
+a complex eigenvector of $A$.
+Consider map $\varphi : \C^2 \to \GL_2(\R)$:
+\[
     \begin{pmatrix}
-        \lambda u & -\overline{\lambda} v \\
-        \lambda v & \overline{\lambda} u
+        x_1 + y_1 i \\
+        x_2 + y_2 i
     \end{pmatrix}
-    \\
-    & = 
+    \mapsto
     \begin{pmatrix}
-        \lambda(u^2+v^2) & - \overline{\lambda} uv + \overline{\lambda} uv \\
-        - \lambda uv + \lambda uv & \overline{\lambda} (v^2 + u^2)
-    \end{pmatrix}
-    = 
-    \begin{pmatrix}
-        \lambda &  \\
-         & \overline{\lambda}
+        x_1 & y_1 \\
+        x_2 & y_2
     \end{pmatrix}.
+\]
+
+Suppose $\det \varphi(v) = d$, then we can scale $v$ by $\nicefrac{1}{c^2}$ so that the resulting eigenvector has determinant $\pm 1$.
+Vector $\overline{v} = X - iY$ is also an eigenvector of $A$ and $\det \varphi(\overline{v}) = -d$.
+
+We choose eigenvector $v$ such that $\det \varphi (v) = 1$.
+Suppose chosen $v$ has eigenvalue $\lambda$.
+For such $v$ we have:
+\begin{equation}
+    \begin{aligned} \label{eq:eigv}
+        A v 
+        & = (a + bi) (X + iY)
+        = aX + iaY + ibX - bY \\
+        & = (aX-bY) + i (bX+aY)
+        =
+        \begin{pmatrix}
+            a x_1 - b y_1 \\
+            a x_2 - b y_2
+        \end{pmatrix}
+        +i
+        \begin{pmatrix}
+            b x_1 + a y_1 \\
+            b x_2 + a y_2
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+
+Applying $\varphi$ to both sides of the equation (\ref{eq:eigv}) we have:
+\[
+    \varphi
+    \left( A
+        \begin{pmatrix}
+            x_1 + y_1 i \\
+            x_2 + y_2 i
+        \end{pmatrix}
+    \right)
+    =
+    \varphi
+    \left(
+        \begin{pmatrix}
+            a x_1 - b y_1 \\
+            a x_2 - b y_2
+        \end{pmatrix}
+        +i
+        \begin{pmatrix}
+            b x_1 + a y_1 \\
+            b x_2 + a y_2
+        \end{pmatrix}
+    \right)
+\]
+We notice that $\varphi (Sv) = S \varphi(v)$ for any $2 \times 2$ real matrix $S$, therefore:
+\[
+    A T
+    =
+    \begin{pmatrix}
+        a x_1 - b y_1 &  b x_1 + a y_1 \\
+        a x_2 - b y_2 &  b x_2 + a y_2
+    \end{pmatrix}
+    =
+    T
+    \begin{pmatrix}
+        a & b \\
+        -b & a
+    \end{pmatrix},
+\]
+where 
+$
+    T =
+    \begin{pmatrix}
+        x_1 & y_1 \\
+        x_2 & y_2
+    \end{pmatrix}
+$.
+From this we have:
+\begin{align*}
+    A T = T R_{(-\theta)}, \\
+    T^{-1} A T = R_{(-\theta)},
 \end{align*}
+where $R_{(-\theta)}$ is the matrix of rotation by $-\theta$, which corresponds to multiplication by complex number $\overline{\lambda}$ of absolute value $1$.
 
+Matrix $R_{(-\theta)}$ is an element of $\SL_2$ and we have specifically chosen $v$ such that $\det T = 1$, thus matrix $A$ is in the $\SL_2$-conjugacy class of $\R_{(-\theta)}$.
 
-\end{proof}
+If we were to use eigenvector $\overline{v}$ with eigenvalue $\overline{\lambda}$, we would have arrived at the inverse of $R_{(-\theta)}$, matrix of rotation by $\theta$, which corresponds to multiplication by complex number $\lambda$.
+
+Therefore, there are two $\SL_2$-conjugacy classes for each given complex conjugate pair of eigenvalues of $A$. 
+
 
 \begin{tcolorbox}
 c) Determine the matrices $P \in \SL_2$ that can be obtained as $P = e^A$ for some real matrix $A$.
 \end{tcolorbox}
 
-\begin{proof}
-\end{proof}
+[TODO]
+
 
 \subsection*{Problem 2}
 
